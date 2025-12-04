@@ -91,6 +91,14 @@ function M.media_files(opts)
   M.base_directory = vim.fn.fnamemodify(sourced_file, ":h:h:h:h")
   opts = opts or {}
   opts.attach_mappings= function(prompt_bufnr,map)
+    -- 添加 leader+q 快捷键关闭弹窗
+    map('i', '<leader>q', function()
+      actions.close(prompt_bufnr)
+    end)
+    map('n', '<leader>q', function()
+      actions.close(prompt_bufnr)
+    end)
+    
     actions.select_default:replace(function()
       local entry = action_state.get_selected_entry()
       actions.close(prompt_bufnr)
@@ -111,6 +119,16 @@ function M.media_files(opts)
     return true
   end
   opts.path_display = { "shorten" }
+  
+  -- 配置窗口布局：缩小结果窗口，增大预览窗口
+  -- 如果用户没有指定布局策略，使用默认的 horizontal 布局
+  if not opts.layout_strategy then
+    opts.layout_strategy = "horizontal"
+  end
+  opts.layout_config = opts.layout_config or {}
+  opts.layout_config.width = opts.layout_config.width or 0.9
+  opts.layout_config.preview_width = opts.layout_config.preview_width or 0.8  -- 预览窗口占 65%
+  opts.layout_config.results_width = opts.layout_config.results_width or 0.2  -- 结果窗口占 30%
 
   local popup_opts={}
   opts.get_preview_window=function ()
