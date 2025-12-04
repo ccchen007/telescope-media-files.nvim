@@ -127,8 +127,8 @@ function M.media_files(opts)
   end
   opts.layout_config = opts.layout_config or {}
   opts.layout_config.width = opts.layout_config.width or 0.9
-  opts.layout_config.preview_width = opts.layout_config.preview_width or 0.8  -- 预览窗口占 65%
-  opts.layout_config.results_width = opts.layout_config.results_width or 0.2  -- 结果窗口占 30%
+  opts.layout_config.preview_width = opts.layout_config.preview_width or 0.7  -- 预览窗口占 65%
+  opts.layout_config.results_width = opts.layout_config.results_width or 0.3  -- 结果窗口占 30%
 
   local popup_opts={}
   opts.get_preview_window=function ()
